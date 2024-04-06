@@ -12,4 +12,5 @@ class TaskSerializer(serializers.Serializer):
 
     def create(self, data):
         print(data)
+        Task.objects.create(**data)
         return {}
