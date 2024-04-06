@@ -1,3 +1,14 @@
-from django.shortcuts import render
+from rest_framework.views import APIView
+from rest_framework.response import Response
 
-# Create your views here.
+from .serializers import TaskSerializer
+
+class AddTask(APIView):
+    def post(self, request):
+        
+        data=request.data
+        serializer=TaskSerializer(data=data)
+
+        print(serializer.is_valid())
+        print(serializer.create(data=data))
+        return Response({"data":data})
