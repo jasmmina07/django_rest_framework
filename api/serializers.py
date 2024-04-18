@@ -5,12 +5,16 @@ from .models import Task
 
 
 class TaskSerializer(serializers.Serializer):
-    title = serializers.CharField()
-    completed = serializers.BooleanField()
-    description = serializers.CharField()
-    created_at = serializers.DateTimeField()
+    title = serializers.CharField(required=True)
+    completed = serializers.BooleanField(default=False)
+    description = serializers.CharField(required=True)
+    created_at = serializers.DateTimeField(read_only=True)
+    updated = serializers.DateTimeField(read_only=True)
+    class Meta:
+        model = Task
+        fields = "__all__"
 
     def create(self, data):
         print(data)
         Task.objects.create(**data)
-        return {}
+        return "Done"
